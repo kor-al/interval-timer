@@ -5,19 +5,17 @@ class Timer extends React.Component {
     constructor(props) {
         super(props);
 
-        this.remaining = undefined;
+        this.remaining = 0;
+        this.currentDuration = 0; //to track changes in duration on pauses
         this.timerInterval = null
         this.startTime = undefined;
 
-
-        this.state = { 'minutes': 0, 'seconds': 0 }
         this.update = this.update.bind(this);
-
-
         this.clear = this.clear.bind(this);
         this.start = this.start.bind(this);
         this.pause = this.pause.bind(this);
         this.resume = this.resume.bind(this);
+        this.reset = this.reset.bind(this);
     
     }
 
@@ -32,7 +30,7 @@ class Timer extends React.Component {
 
         minutes = minutes < 10 ? "0" + minutes : minutes;
         seconds = seconds < 10 ? "0" + seconds : seconds;
-        this.setState({ 'minutes': minutes, 'seconds': seconds })
+        this.props.setTimeLeft(minutes, seconds)
     }
 
     setTimerInterval(duration) {
@@ -42,7 +40,8 @@ class Timer extends React.Component {
         this.timerInterval = setInterval(() => {
             this.update(timer);
             if (--timer < 0) {
-                timer = duration;
+                this.clear();
+                this.props.setPaused(true);
             }
         }, 1000)
     }
@@ -50,8 +49,9 @@ class Timer extends React.Component {
 
     start() {
         //if first start
-        if(this.remaining === undefined){
-            this.remaining = this.props.duration;
+        if(this.remaining === 0 || (this.currentDuration!==this.props.duration)){
+            this.remaining = this.props.duration;//this.props.minutes*60 + this.props.seconds;
+            this.currentDuration = this.props.duration;
         }
         this.resume(this.remaining);
 
@@ -66,17 +66,31 @@ class Timer extends React.Component {
     }
 
     resume(remaining) {
-        this.setTimerInterval(remaining)
         this.props.setPaused(false);
+        this.setTimerInterval(remaining);
     }
 
+    reset(){
+        this.clear();
+        this.props.setPaused(true);
+        this.props.setDuration(this.props.default);
+        this.props.setTimeLeft(this.props.default);
+        this.remaining = 0;
+    }
+
+    
 
     render() {
+        // let minutes = `${this.props.minutes < 10 ? "0" + this.props.minutes : this.props.minutes}`;
+        // let seconds = `${this.props.seconds < 10 ? "0" + this.props.seconds : this.props.seconds}`;
+        //let minutes = this.props.minutes ;
+        //let seconds = this.props.seconds ;
         return (
             <div id='timer'>
-                <div key = {this.props.duration}>{this.state.minutes}:{this.state.seconds}</div>
-                {/* <button onClick={this.start}>start</button> */}
-                {/* <button onClick={this.pause}>pause</button> */}
+                {this.props.minutes} : {this.props.seconds}
+                <button onClick={this.start}>start</button>
+                <button onClick={this.pause}>pause</button>
+                <button onClick={this.reset}>reset</button>
             </div>
         )
     }

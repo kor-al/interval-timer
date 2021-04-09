@@ -10,7 +10,6 @@ class Controls extends React.Component {
 
   constructor(props) {
       super(props);
-      this.state = {count: 25}
       this.increment = this.increment.bind(this);
       this.decrement = this.decrement.bind(this);
   }
@@ -43,28 +42,41 @@ class App extends React.Component {
 
   constructor(props) {
       super(props);
-      this.state = {count: 25, isTimerPaused: true};
-      this.updateCount = this.updateCount.bind(this);
-      this.updatePause = this.updatePause.bind(this);
+      this.state = { duration: 25, isTimerPaused: true, minutes: 25, seconds: 0};
+      this.updateDuration = this.updateDuration.bind(this);
+      this.setPause = this.setPause.bind(this);
+      this.setTimeLeft = this.setTimeLeft.bind(this);
+      this.setDuration = this.setDuration.bind(this);
   }
 
-  updateCount(value){
-    if(this.state.count + value >=0 && this.state.isTimerPaused){
-      this.setState({ count: this.state.count + value });
+  updateDuration(value){
+    if(this.state.duration + value >=0 && this.state.isTimerPaused){
+      this.setDuration(this.state.duration + value);
+      this.setTimeLeft(this.state.duration + value);
     }
-    console.log('update');
+    
+    console.log('set start time', this.state.duration, value);
   }
 
-  updatePause(value){
-    console.log('pause', value);
+  setPause(value){
     this.setState({ isTimerPaused: value });
   }
+  
+  setTimeLeft(min, sec = 0){
+    this.setState({ 'minutes': min, 'seconds': sec })
+  } 
+
+  setDuration(duration){
+    this.setState({ duration: duration });
+  }  
+  
   
   render(){
     return (
     <div className="App">
-      <Controls type='session' update={this.updateCount}  count={this.state.count}/>
-      <Timer duration ={this.state.count * 60} setPaused={this.updatePause}/>
+      <Controls type='session' update={this.updateDuration}  count={this.state.duration} />
+      <Timer default={25} duration={this.state.duration*60} minutes={this.state.minutes} seconds={this.state.seconds}
+       setPaused={this.setPause} setTimeLeft={this.setTimeLeft} setDuration={this.setDuration}/> 
       <ReactFCCtest />
     </div>
   );
