@@ -37,6 +37,7 @@ class Timer extends React.Component {
         this.clear();
         var timer = duration;
         this.startTime = Date.now();
+        --timer;
         this.timerInterval = setInterval(() => {
             this.update(timer);
             if (--timer < 0) {
