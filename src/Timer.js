@@ -12,6 +12,7 @@ class Timer extends React.Component {
         this.activeMode = 'session';
         this.countModeSwitches = 0;
         this.isPaused = true;
+        this.audio = null;
 
         this.update = this.update.bind(this);
         this.clear = this.clear.bind(this);
@@ -25,6 +26,10 @@ class Timer extends React.Component {
 
     }
 
+    componentDidMount(){
+        this.audio = document.getElementById('beep');
+    }
+
     clear() {
         clearInterval(this.timerInterval)
     }
@@ -33,14 +38,12 @@ class Timer extends React.Component {
         let minutes = parseInt(timer / 60, 10);
         let seconds = parseInt(timer % 60, 10);
 
-        console.log('update state', minutes, seconds);
-
         if (minutes >= 0 && seconds >= 0) {
             let properties = {
                 'minutes': minutes,
                 'seconds': seconds
             }
-            this.props.setProperty(properties, this.activeMode);
+            this.props.setTypeProperty(properties, this.activeMode);
         }
 
     }
@@ -49,18 +52,27 @@ class Timer extends React.Component {
         this.clear();
         var timer = duration;
         this.startTime = Date.now();
-        --timer;
+        this.update(timer);
+        timer--;
         this.timerInterval = setInterval(() => {
-            this.update(timer);
-            if (--timer < 0) {
-                this.clear();
-                //this.props.setPause(true);
-                this.switchMode();
-                this.start();
+            if (timer < 0) {
+                    this.isPaused = true;
+                    this.clear();
+                    this.switchMode();
+                    this.start();
+                    return;
+            }
+            else {
+                if(timer === 0){
+                    if(this.audio){
+                        this.audio.play();
+                    }
+                }
+                this.update(timer);
+                timer--;
             }
         }, 1000)
     }
-
 
     start() {
         if (!this.isPaused) {
@@ -72,7 +84,6 @@ class Timer extends React.Component {
                 this.remaining = this.props.data[this.activeMode].duration * 60 + this.props.data[this.activeMode].seconds;//in seconds;
                 this.currentDuration = this.props.data[this.activeMode].duration;
             }
-            console.log('remaining', this.remaining);
             this.resume(this.remaining);
         }
     }
@@ -99,19 +110,23 @@ class Timer extends React.Component {
     reset() {
         this.clear();
         this.switchPause(true);
+        this.activeMode = 'session';
         this.remaining = 0;
+        this.audio.pause();
+        this.audio.currentTime = 0;
         this.props.reset();
     }
 
     switchMode() {
         this.activeMode = (this.activeMode === 'session' ? 'break' : 'session');
+        this.props.setPropery('activeMode', this.activeMode);
         this.remaining = 0;
         this.countModeSwitches += 1;
     }
 
     switchPause(value) {
         this.isPaused = value;
-        this.props.setPause(this.isPaused);
+        this.props.setPropery('isTimerPaused', this.isPaused);
     }
 
 
@@ -124,10 +139,12 @@ class Timer extends React.Component {
 
         return (
             <div id='timer'>
-                <div id="timer-label">{this.activeMode}</div>
+                <div id="timer-label">{this.props.data.activeMode}</div>
                 <div id="time-left">{`${minutes}:${seconds}`}</div>
                 <button id="start_stop" onClick={this.start}>start/pause</button>
                 <button id="reset" onClick={this.reset}>reset</button>
+                <audio id="beep" src={process.env.PUBLIC_URL + '/sounds/07022112.wav'}></audio>
+                {/* <audio id="beep" src="https://sound-effects-media.bbcrewind.co.uk/mp3/07022112.mp3"></audio> */}
             </div>
         )
     }
