@@ -1,6 +1,15 @@
 .App {
-    // width: 96%;
-    position: relative;
+    background-color: #282c34;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    transition: all 300ms ease-in-out;
+
+    &__container {
+        position: relative;
+    }
 
     &__controls {
         position: absolute;
@@ -25,7 +34,7 @@
 
 
             .controls {
-                
+
                 & div:nth-child(1) {
                     animation: move-1 300ms ease-in-out;
                     animation-fill-mode: both;
@@ -43,6 +52,30 @@
 
 
 
+    }
+
+    &.paused{
+        background-color: #73877b;
+        color: #f5e4d7;
+        path{
+            fill:#f5e4d7;
+        }
+    }
+
+    &.in-break{
+        background-color: #a6bb6b;
+        color: #eaf1c5;
+        path{
+            fill:#eaf1c5;
+        }
+    }
+
+    &.in-session{
+        background-color: #2f4550;
+        color: #b8dbd9;
+        path{
+            fill:#b8dbd9;
+        }
     }
 
 }
@@ -63,11 +96,13 @@
     &__panel {
         display: flex;
         font-size: calc(5rem + 0.5vw);
+        align-items: center;
     }
 
     &__buttons {
         display: inline-flex;
         flex-direction: column;
+        
     }
 
     & div:nth-child(1) {
@@ -89,33 +124,33 @@
 }
 
 
-@mixin animation-move($name, $i, $from, $to, $opacityFrom, $opacityTo){
+@mixin animation-move($name, $i, $from, $to, $opacityFrom, $opacityTo) {
 
-@keyframes #{$name}-#{$i} {
-    from {
-        transform: translateY($from);
-        opacity: $opacityFrom;
-    }
+    @keyframes #{$name}-#{$i} {
+        from {
+            transform: translateY($from);
+            opacity: $opacityFrom;
+        }
 
-    to {
-        transform: translateY($to);
-        opacity: $opacityTo;
+        to {
+            transform: translateY($to);
+            opacity: $opacityTo;
+        }
     }
 }
-}
 
-@include animation-move(move, 1, -200%, 0%, 0 , 1);
-@include animation-move(move, 2, -100%, 0%, 0 , 1);
+@include animation-move(move, 1, -200%, 0%, 0, 1);
+@include animation-move(move, 2, -100%, 0%, 0, 1);
 
-@include animation-move(inv-move, 1, 0%,-200%, 1 , 0);
-@include animation-move(inv-move, 2, 0%, -100%, 1 , 0);
+@include animation-move(inv-move, 1, 0%, -200%, 1, 0);
+@include animation-move(inv-move, 2, 0%, -100%, 1, 0);
 
-.overlay{
+.overlay {
     width: 100vw;
     height: 100vh;
-    position:absolute;
-    left:50%;
-    top:50%;
+    position: absolute;
+    left: 50%;
+    top: 50%;
     transform: translate(-50%, -50%);
     z-index: -1;
 

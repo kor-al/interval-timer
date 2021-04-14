@@ -34,14 +34,4 @@
 .timer__controls .btn + .btn {
   margin-left: calc(0.5rem + 1vw);
 }
-
-.timer__controls .fade-out {
-  opacity: 0;
-  visibility: hidden;
-}
-
-.timer__controls .fade-in {
-  visibility: visible;
-  opacity: 1;
-}
 /*# sourceMappingURL=Timer.css.map */

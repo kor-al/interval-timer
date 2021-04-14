@@ -32,9 +32,9 @@ class Controls extends React.Component {
         <div id={`${this.props.type}-label`} className='controls__label'>{this.props.type}</div>
         <div className="controls__panel">
           <span id={`${this.props.type}-length`} className='controls__length'>{this.props.count}</span>
-          <span className='controls__buttons'>
-            <button id={`${this.props.type}-increment`} className='controls__increment' onClick={this.increment}><FontAwesomeIcon icon={faAngleUp} size = '2x'/></button>
-            <button id={`${this.props.type}-decrement`} className="controls__decrement" onClick={this.decrement}><FontAwesomeIcon icon={faAngleDown} size = '2x' /></button>
+          <span className='controls__buttons' >
+            <button id={`${this.props.type}-increment`} className='controls__increment' onClick={this.increment}><FontAwesomeIcon icon={faAngleUp} size='2x' /></button>
+            <button id={`${this.props.type}-decrement`} className="controls__decrement" onClick={this.decrement}><FontAwesomeIcon icon={faAngleDown} size='2x' /></button>
           </span>
         </div>
       </div>
@@ -43,11 +43,7 @@ class Controls extends React.Component {
 
 }
 
-function Overlay(props){
-  if(props.mode === 'session'){
-      return <div className='overlay' style={{backgroundColor: '#4a54f1'}}/>
-  }
-}
+
 
 class App extends React.Component {
 
@@ -72,27 +68,24 @@ class App extends React.Component {
 
   componentDidMount() {
     // var timer = document.getElementById('timer');
+    var app = document.querySelector('.App');
     var controls = document.querySelector('.App__controls');
-    controls.classList.add('active');
-    var startStopBtn = document.getElementById('start_stop');
-    startStopBtn.addEventListener('click', (e) => {
-      if (!controls.classList.contains('active')) {
-        controls.classList.add('active');
-      } else {
-        controls.classList.remove('active');
-      }
-    });
+    var timer = document.getElementById('timer');
 
-    // timer.addEventListener('mouseover', (e) =>{
-    //   if (!controls.classList.contains('active')) {
-    //     controls.classList.add('active')
-    //   }  
-    // })
-    // timer.addEventListener('mouseover', (e) =>{
-    //   if (!controls.classList.contains('active')) {
-    //     controls.classList.add('active')
-    //   }  
-    // })
+    // timer.addEventListener('mouseover', (e) => {
+
+    //     if (!controls.classList.contains('active')) {
+    //       controls.classList.add('active');
+    //       setTimeout(()=>{
+    //         if(!this.state.isTimerPaused){
+    //           controls.classList.remove('active');
+    //         }
+    //     }, 3000);
+    //     } 
+  
+  
+    //   });
+
   }
 
   resetState() {
@@ -128,15 +121,31 @@ class App extends React.Component {
 
 
   render() {
+    
+    let appClass = '';
+    if(this.state.isTimerPaused){
+      appClass = 'paused';
+    }
+    else{
+      if(this.state.activeMode === 'session'){
+        appClass = 'in-session';
+      }
+      if(this.state.activeMode === 'break'){
+        appClass = 'in-break';
+      }
+    } 
+
+
     return (
-      <div className="App">
-        <div className="App__controls">
+      <div className={`App ${appClass}`}>
+        <div className="App__container">
+        <div className={`App__controls ${this.state.isTimerPaused ? "active" : ""}`}>
           <Controls type='session' update={this.updateDuration} count={this.state['session'].duration} />
           <Controls type='break' update={this.updateDuration} count={this.state['break'].duration} />
         </div>
         <Timer data={this.state} setTypeProperty={this.setTypeProperty} setPropery={this.setProperty} reset={this.resetState} />
-        <Overlay mode={this.state.activeMode}/>
         <ReactFCCtest />
+      </div>
       </div>
     );
   }
