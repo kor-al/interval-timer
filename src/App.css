@@ -23,9 +23,6 @@
 }
 
 .App__controls {
-  position: absolute;
-  top: 100%;
-  left: 0;
   width: 100%;
   display: -webkit-box;
   display: -ms-flexbox;

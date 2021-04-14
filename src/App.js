@@ -139,11 +139,11 @@ class App extends React.Component {
     return (
       <div className={`App ${appClass}`}>
         <div className="App__container">
+        <Timer data={this.state} setTypeProperty={this.setTypeProperty} setPropery={this.setProperty} reset={this.resetState} />
         <div className={`App__controls ${this.state.isTimerPaused ? "active" : ""}`}>
           <Controls type='session' update={this.updateDuration} count={this.state['session'].duration} />
           <Controls type='break' update={this.updateDuration} count={this.state['break'].duration} />
         </div>
-        <Timer data={this.state} setTypeProperty={this.setTypeProperty} setPropery={this.setProperty} reset={this.resetState} />
         <ReactFCCtest />
       </div>
       </div>
