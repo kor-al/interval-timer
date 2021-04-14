@@ -1,0 +1,39 @@
+.timer{
+    position: relative;
+
+    &__header{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    &__display{
+        font-size: calc(1rem + 23vw);
+    }
+    &__label{
+        text-align: left;
+        font-size: calc(1rem + 3vw);
+    }
+    &__controls{
+        text-align: right;
+        .btn{
+            font-size: calc(1rem + 3vw);
+
+            &+.btn{
+                margin-left: calc(0.5rem + 1vw);
+
+            }
+        }
+
+        .fade-out{
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .fade-in{
+            visibility: visible;
+            opacity: 1 
+        }
+
+    }
+}

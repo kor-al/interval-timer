@@ -1,0 +1,122 @@
+.App {
+    // width: 96%;
+    position: relative;
+
+    &__controls {
+        position: absolute;
+        top: 100%;
+        left: 0;
+
+
+        width: 100%;
+        display: flex;
+        //flex-direction: column;
+        justify-content: flex-start;
+        font-size: calc(1rem + 0.5vw);
+        //visibility: hidden;
+        transition: all 300ms ease-in-out;
+
+        .btn {
+            font-size: calc(1.5rem + 0.5vw);
+        }
+
+        &.active {
+            // visibility: visible;
+
+
+            .controls {
+                
+                & div:nth-child(1) {
+                    animation: move-1 300ms ease-in-out;
+                    animation-fill-mode: both;
+                    animation-delay: 300ms;
+                }
+
+                & div:nth-child(2) {
+                    animation: move-2 300ms ease-in-out;
+                    animation-fill-mode: both;
+                    animation-delay: 0;
+                }
+            }
+        }
+
+
+
+
+    }
+
+}
+
+
+.controls {
+    text-align: left;
+    //background-color: green;
+
+
+    &__length {
+        font-size: calc(2.5rem + 0.5vw);
+        padding-right: 0.5em;
+        ;
+        align-self: center;
+    }
+
+    &__panel {
+        display: flex;
+        font-size: calc(5rem + 0.5vw);
+    }
+
+    &__buttons {
+        display: inline-flex;
+        flex-direction: column;
+    }
+
+    & div:nth-child(1) {
+        animation: inv-move-1 300ms ease-in-out;
+        animation-fill-mode: both;
+        animation-delay: 0ms;
+    }
+
+    & div:nth-child(2) {
+        animation: inv-move-2 300ms ease-in-out;
+        animation-fill-mode: both;
+        animation-delay: 300ms;
+    }
+
+}
+
+.controls+.controls {
+    margin-left: 2em;
+}
+
+
+@mixin animation-move($name, $i, $from, $to, $opacityFrom, $opacityTo){
+
+@keyframes #{$name}-#{$i} {
+    from {
+        transform: translateY($from);
+        opacity: $opacityFrom;
+    }
+
+    to {
+        transform: translateY($to);
+        opacity: $opacityTo;
+    }
+}
+}
+
+@include animation-move(move, 1, -200%, 0%, 0 , 1);
+@include animation-move(move, 2, -100%, 0%, 0 , 1);
+
+@include animation-move(inv-move, 1, 0%,-200%, 1 , 0);
+@include animation-move(inv-move, 2, 0%, -100%, 1 , 0);
+
+.overlay{
+    width: 100vw;
+    height: 100vh;
+    position:absolute;
+    left:50%;
+    top:50%;
+    transform: translate(-50%, -50%);
+    z-index: -1;
+
+}
