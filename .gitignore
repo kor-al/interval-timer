@@ -24,4 +24,4 @@ yarn-error.log*
 
 
 #scss
-**.css.map
+**/src/*.css.map

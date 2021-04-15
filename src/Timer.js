@@ -12,7 +12,7 @@ class Timer extends React.Component {
         this.timerInterval = null
         this.startTime = undefined;
         this.activeMode = 'session';
-        this.countModeSwitches = 0;
+        this.countSessions = 1;
         this.isPaused = true;
         this.audio = null;
 
@@ -130,6 +130,7 @@ class Timer extends React.Component {
         this.remaining = 0;
         this.audio.pause();
         this.audio.currentTime = 0;
+        this.countSessions = 1;
         this.props.reset();
     }
 
@@ -137,7 +138,9 @@ class Timer extends React.Component {
         this.activeMode = (this.activeMode === 'session' ? 'break' : 'session');
         this.props.setPropery('activeMode', this.activeMode);
         this.remaining = 0;
-        this.countModeSwitches += 1;
+        if(this.activeMode ==='session'){
+            this.countSessions+=1;
+        }
     }
 
     switchPause(value) {
@@ -156,7 +159,10 @@ class Timer extends React.Component {
         return (
             <div id='timer' className="timer">
                 <div className="timer__header">
-                    <div id="timer-label" className="timer__label">{this.props.data.activeMode}</div>
+                    <div id="timer-label" className="timer__label">
+                        {this.props.data.activeMode}
+                        <span className='sessionCount'>{`${this.props.data.isTimerPaused ?  "": ' #' + this.countSessions}`}</span>
+                    </div>
                     <div id="timer-controls" className="timer__controls">
                         <button id="start_stop" className={`btn pause-play ${this.props.data.isTimerPaused ? "pause" : "play"}`} onClick={this.start}></button>
                         <button id="reset" className="btn reset" onClick={this.reset}><FontAwesomeIcon icon={faRedo} size='1x' /></button>

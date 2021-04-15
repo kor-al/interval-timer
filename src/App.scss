@@ -49,9 +49,6 @@
             }
         }
 
-
-
-
     }
 
     &.paused{
@@ -106,6 +103,7 @@
         display: flex;
         font-size: calc(5rem + 0.5vw);
         align-items: center;
+        justify-content: end;
     }
 
     &__buttons {
