@@ -43,9 +43,9 @@ class Controls extends React.Component {
 
 }
 
-function Footer() {
+function Footer(props) {
   return (
-    <footer className="footer">
+    <footer className={`footer`}>
       Designed and Build by <a style={{fontWeight: 700}} href="https://github.com/kor-al">kor-al</a>
     </footer>
   );
@@ -150,7 +150,7 @@ class App extends React.Component {
           <Controls type='session' update={this.updateDuration} count={this.state['session'].duration} />
           <Controls type='break' update={this.updateDuration} count={this.state['break'].duration} />
         </div>
-        <Footer/>
+        <Footer isTimerPaused = {this.state.isTimerPaused}/>
       </div>
       <ReactFCCtest />
       </div>

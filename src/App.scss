@@ -130,6 +130,10 @@
     margin-left: 2em;
 }
 
+.footer{
+    align-self: flex-start;
+}
+
 
 @mixin animation-move($name, $i, $from, $to, $opacityFrom, $opacityTo) {
 
