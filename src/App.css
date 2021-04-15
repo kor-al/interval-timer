@@ -66,6 +66,10 @@
   fill: #f5e4d7;
 }
 
+.App.paused .pause-play:after, .App.paused .pause-play:before {
+  background-color: #f5e4d7;
+}
+
 .App.in-break {
   background-color: #a6bb6b;
   color: #eaf1c5;
@@ -75,6 +79,10 @@
   fill: #eaf1c5;
 }
 
+.App.in-break .pause-play:after, .App.in-break .pause-play:before {
+  background-color: #eaf1c5;
+}
+
 .App.in-session {
   background-color: #2f4550;
   color: #b8dbd9;
@@ -82,6 +90,10 @@
 
 .App.in-session path {
   fill: #b8dbd9;
+}
+
+.App.in-session .pause-play:after, .App.in-session .pause-play:before {
+  background-color: #b8dbd9;
 }
 
 .controls {

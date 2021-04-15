@@ -60,6 +60,9 @@
         path{
             fill:#f5e4d7;
         }
+        .pause-play:after, .pause-play:before {
+        background-color: #f5e4d7;
+        }
     }
 
     &.in-break{
@@ -68,6 +71,9 @@
         path{
             fill:#eaf1c5;
         }
+        .pause-play:after, .pause-play:before {
+            background-color: #eaf1c5;
+            }
     }
 
     &.in-session{
@@ -76,6 +82,9 @@
         path{
             fill:#b8dbd9;
         }
+        .pause-play:after, .pause-play:before {
+            background-color: #b8dbd9;
+            }
     }
 
 }

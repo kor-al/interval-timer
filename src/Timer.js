@@ -1,6 +1,6 @@
 import React from 'react';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { faRedoAlt, faPlay, faPause } from '@fortawesome/free-solid-svg-icons';
+import { faRedo } from '@fortawesome/free-solid-svg-icons';
 
 class Timer extends React.Component {
 
@@ -30,6 +30,20 @@ class Timer extends React.Component {
 
     componentDidMount() {
         this.audio = document.getElementById('beep');
+
+        var btn = document.getElementById('reset');
+        btn.onclick = function (event) {
+            if (btn.classList.contains('spin')) {
+                btn.classList.remove('spin');
+            }
+            btn.classList.add('spin');
+            setTimeout(function () {
+                if (btn.classList.contains('spin')) {
+                    btn.classList.remove('spin');
+                }
+            }, 500);
+        }
+
     }
 
     clear() {
@@ -144,8 +158,8 @@ class Timer extends React.Component {
                 <div className="timer__header">
                     <div id="timer-label" className="timer__label">{this.props.data.activeMode}</div>
                     <div id="timer-controls" className="timer__controls">
-                        <button id="start_stop" className="btn" onClick={this.start}><FontAwesomeIcon icon={faPlay} size='1x' /><FontAwesomeIcon icon={faPause} size='1x' /></button>
-                        <button id="reset" className="btn" onClick={this.reset}><FontAwesomeIcon icon={faRedoAlt} size='1x' /></button>
+                        <button id="start_stop" className={`btn pause-play ${this.props.data.isTimerPaused ? "pause" : "play"}`} onClick={this.start}></button>
+                        <button id="reset" className="btn reset" onClick={this.reset}><FontAwesomeIcon icon={faRedo} size='1x' /></button>
                     </div>
                 </div>
 

@@ -1,29 +1,158 @@
-.timer{
+.timer {
     position: relative;
 
-    &__header{
+    &__header {
         display: flex;
         justify-content: space-between;
         align-items: center;
     }
 
-    &__display{
+    &__display {
         font-size: calc(1rem + 23vw);
     }
-    &__label{
+
+    &__label {
         text-align: left;
         font-size: calc(1rem + 3vw);
     }
-    &__controls{
+
+    &__controls {
         text-align: right;
-        .btn{
+        display: flex;
+        align-items: center;
+        justify-content:  center;
+
+        .btn {
             font-size: calc(1rem + 3vw);
 
-            &+.btn{
+            &+.btn {
                 margin-left: calc(0.5rem + 1vw);
+            }
 
+        }
+
+        .pause-play {
+            position: relative;
+            width: calc(0.6rem + 3vw);;
+            height: calc(0.6rem + 3vw);;
+            background-color: transparent;
+            overflow: visible;
+
+            &:after {
+                position: absolute;
+                left: 0;
+                top: 0;
+                content: "";                
+                width: 100%;
+                height: 100%;
+                background-color: ivory;
+                clip-path: polygon(18% 0%, 37% 0, 37% 100%, 18% 100%); 
+                
+            }
+            
+            &.pause{
+                &:after {
+                    animation: morph-up 1s ease-in-out;
+                    animation-fill-mode: both;
+                }
+
+                &:before{
+                    animation: morph-down 1s ease-in-out;
+                    animation-fill-mode: both;
+                }
+            }
+
+            &.play{
+                &:after {
+                    animation: reverse-morph-up 1s ease-in-out;
+                    animation-fill-mode: both;
+                }
+
+                &:before{
+                    animation: reverse-morph-down 1s ease-in-out;
+                    animation-fill-mode: both;
+                }
+            }
+
+            &:before {
+                position: absolute;
+                left: 0%;
+                top: 0%;
+                content: "";
+                width: 100%;
+                 height: 100%;
+                background-color: ivory;
+                clip-path: polygon(63% 0, 82% 0, 82% 100%, 63% 100%);
+            }
+        }
+
+        .reset{
+            &.spin{
+                animation: spin-animation 500ms ease-in-out;
             }
         }
 
     }
 }
+
+
+@keyframes morph-up {
+	0% {
+		transform: rotate(0deg);
+	}
+	60% {
+		transform: rotate(90deg) translateY(-30%);
+	}
+	100% {
+		transform: rotate(90deg);
+		clip-path: polygon(50% 0, 50% 0, 100% 100%, 50% 100%);
+	}
+}
+
+@keyframes reverse-morph-up {
+	0% {
+		transform: rotate(90deg);
+		clip-path: polygon(50% 0, 50% 0, 100% 100%, 50% 100%);
+	}
+	40% {
+		transform: rotate(90deg) translateY(-20%);
+		clip-path: polygon(25% 0%, 42% 0, 42% 100%, 25% 100%);
+	}
+	100% {
+		transform: rotate(0deg);
+	}
+}
+
+@keyframes morph-down {
+	0% {
+		transform: rotate(0deg);
+	}
+	60% {
+		transform: rotate(90deg) translateX(-30%);
+	}
+	100% {
+		transform: rotate(90deg);
+		clip-path: polygon(50% 0, 50% 0, 50% 100%, 0% 100%);
+	}
+}
+
+@keyframes reverse-morph-down {
+	0% {
+		transform: rotate(90deg);
+		clip-path: polygon(50% 0, 50% 0, 50% 100%, 0% 100%);
+	}
+	40% {
+		transform: rotate(0deg) translateX(-30%);
+	}
+	100% {
+		transform: rotate(0deg);
+	}
+}
+
+@keyframes spin-animation {
+	to {
+		transform: rotate(360deg);
+        
+	}
+}
+

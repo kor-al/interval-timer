@@ -25,6 +25,15 @@
 
 .timer__controls {
   text-align: right;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
 }
 
 .timer__controls .btn {
@@ -33,5 +42,224 @@
 
 .timer__controls .btn + .btn {
   margin-left: calc(0.5rem + 1vw);
+}
+
+.timer__controls .pause-play {
+  position: relative;
+  width: calc(0.6rem + 3vw);
+  height: calc(0.6rem + 3vw);
+  background-color: transparent;
+  overflow: visible;
+}
+
+.timer__controls .pause-play:after {
+  position: absolute;
+  left: 0;
+  top: 0;
+  content: "";
+  width: 100%;
+  height: 100%;
+  background-color: ivory;
+  -webkit-clip-path: polygon(18% 0%, 37% 0, 37% 100%, 18% 100%);
+          clip-path: polygon(18% 0%, 37% 0, 37% 100%, 18% 100%);
+}
+
+.timer__controls .pause-play.pause:after {
+  -webkit-animation: morph-up 1s ease-in-out;
+          animation: morph-up 1s ease-in-out;
+  -webkit-animation-fill-mode: both;
+          animation-fill-mode: both;
+}
+
+.timer__controls .pause-play.pause:before {
+  -webkit-animation: morph-down 1s ease-in-out;
+          animation: morph-down 1s ease-in-out;
+  -webkit-animation-fill-mode: both;
+          animation-fill-mode: both;
+}
+
+.timer__controls .pause-play.play:after {
+  -webkit-animation: reverse-morph-up 1s ease-in-out;
+          animation: reverse-morph-up 1s ease-in-out;
+  -webkit-animation-fill-mode: both;
+          animation-fill-mode: both;
+}
+
+.timer__controls .pause-play.play:before {
+  -webkit-animation: reverse-morph-down 1s ease-in-out;
+          animation: reverse-morph-down 1s ease-in-out;
+  -webkit-animation-fill-mode: both;
+          animation-fill-mode: both;
+}
+
+.timer__controls .pause-play:before {
+  position: absolute;
+  left: 0%;
+  top: 0%;
+  content: "";
+  width: 100%;
+  height: 100%;
+  background-color: ivory;
+  -webkit-clip-path: polygon(63% 0, 82% 0, 82% 100%, 63% 100%);
+          clip-path: polygon(63% 0, 82% 0, 82% 100%, 63% 100%);
+}
+
+.timer__controls .reset.spin {
+  -webkit-animation: spin-animation 500ms ease-in-out;
+          animation: spin-animation 500ms ease-in-out;
+}
+
+@-webkit-keyframes morph-up {
+  0% {
+    -webkit-transform: rotate(0deg);
+            transform: rotate(0deg);
+  }
+  60% {
+    -webkit-transform: rotate(90deg) translateY(-30%);
+            transform: rotate(90deg) translateY(-30%);
+  }
+  100% {
+    -webkit-transform: rotate(90deg);
+            transform: rotate(90deg);
+    -webkit-clip-path: polygon(50% 0, 50% 0, 100% 100%, 50% 100%);
+            clip-path: polygon(50% 0, 50% 0, 100% 100%, 50% 100%);
+  }
+}
+
+@keyframes morph-up {
+  0% {
+    -webkit-transform: rotate(0deg);
+            transform: rotate(0deg);
+  }
+  60% {
+    -webkit-transform: rotate(90deg) translateY(-30%);
+            transform: rotate(90deg) translateY(-30%);
+  }
+  100% {
+    -webkit-transform: rotate(90deg);
+            transform: rotate(90deg);
+    -webkit-clip-path: polygon(50% 0, 50% 0, 100% 100%, 50% 100%);
+            clip-path: polygon(50% 0, 50% 0, 100% 100%, 50% 100%);
+  }
+}
+
+@-webkit-keyframes reverse-morph-up {
+  0% {
+    -webkit-transform: rotate(90deg);
+            transform: rotate(90deg);
+    -webkit-clip-path: polygon(50% 0, 50% 0, 100% 100%, 50% 100%);
+            clip-path: polygon(50% 0, 50% 0, 100% 100%, 50% 100%);
+  }
+  40% {
+    -webkit-transform: rotate(90deg) translateY(-20%);
+            transform: rotate(90deg) translateY(-20%);
+    -webkit-clip-path: polygon(25% 0%, 42% 0, 42% 100%, 25% 100%);
+            clip-path: polygon(25% 0%, 42% 0, 42% 100%, 25% 100%);
+  }
+  100% {
+    -webkit-transform: rotate(0deg);
+            transform: rotate(0deg);
+  }
+}
+
+@keyframes reverse-morph-up {
+  0% {
+    -webkit-transform: rotate(90deg);
+            transform: rotate(90deg);
+    -webkit-clip-path: polygon(50% 0, 50% 0, 100% 100%, 50% 100%);
+            clip-path: polygon(50% 0, 50% 0, 100% 100%, 50% 100%);
+  }
+  40% {
+    -webkit-transform: rotate(90deg) translateY(-20%);
+            transform: rotate(90deg) translateY(-20%);
+    -webkit-clip-path: polygon(25% 0%, 42% 0, 42% 100%, 25% 100%);
+            clip-path: polygon(25% 0%, 42% 0, 42% 100%, 25% 100%);
+  }
+  100% {
+    -webkit-transform: rotate(0deg);
+            transform: rotate(0deg);
+  }
+}
+
+@-webkit-keyframes morph-down {
+  0% {
+    -webkit-transform: rotate(0deg);
+            transform: rotate(0deg);
+  }
+  60% {
+    -webkit-transform: rotate(90deg) translateX(-30%);
+            transform: rotate(90deg) translateX(-30%);
+  }
+  100% {
+    -webkit-transform: rotate(90deg);
+            transform: rotate(90deg);
+    -webkit-clip-path: polygon(50% 0, 50% 0, 50% 100%, 0% 100%);
+            clip-path: polygon(50% 0, 50% 0, 50% 100%, 0% 100%);
+  }
+}
+
+@keyframes morph-down {
+  0% {
+    -webkit-transform: rotate(0deg);
+            transform: rotate(0deg);
+  }
+  60% {
+    -webkit-transform: rotate(90deg) translateX(-30%);
+            transform: rotate(90deg) translateX(-30%);
+  }
+  100% {
+    -webkit-transform: rotate(90deg);
+            transform: rotate(90deg);
+    -webkit-clip-path: polygon(50% 0, 50% 0, 50% 100%, 0% 100%);
+            clip-path: polygon(50% 0, 50% 0, 50% 100%, 0% 100%);
+  }
+}
+
+@-webkit-keyframes reverse-morph-down {
+  0% {
+    -webkit-transform: rotate(90deg);
+            transform: rotate(90deg);
+    -webkit-clip-path: polygon(50% 0, 50% 0, 50% 100%, 0% 100%);
+            clip-path: polygon(50% 0, 50% 0, 50% 100%, 0% 100%);
+  }
+  40% {
+    -webkit-transform: rotate(0deg) translateX(-30%);
+            transform: rotate(0deg) translateX(-30%);
+  }
+  100% {
+    -webkit-transform: rotate(0deg);
+            transform: rotate(0deg);
+  }
+}
+
+@keyframes reverse-morph-down {
+  0% {
+    -webkit-transform: rotate(90deg);
+            transform: rotate(90deg);
+    -webkit-clip-path: polygon(50% 0, 50% 0, 50% 100%, 0% 100%);
+            clip-path: polygon(50% 0, 50% 0, 50% 100%, 0% 100%);
+  }
+  40% {
+    -webkit-transform: rotate(0deg) translateX(-30%);
+            transform: rotate(0deg) translateX(-30%);
+  }
+  100% {
+    -webkit-transform: rotate(0deg);
+            transform: rotate(0deg);
+  }
+}
+
+@-webkit-keyframes spin-animation {
+  to {
+    -webkit-transform: rotate(360deg);
+            transform: rotate(360deg);
+  }
+}
+
+@keyframes spin-animation {
+  to {
+    -webkit-transform: rotate(360deg);
+            transform: rotate(360deg);
+  }
 }
 /*# sourceMappingURL=Timer.css.map */
