@@ -46,7 +46,7 @@ class Controls extends React.Component {
 function Footer() {
   return (
     <footer className="footer">
-      Designed and Build by <a style={{fontWeight: 600}} href="https://github.com/kor-al">kor-al</a>
+      Designed and Build by <a style={{fontWeight: 700}} href="https://github.com/kor-al">kor-al</a>
     </footer>
   );
 }
