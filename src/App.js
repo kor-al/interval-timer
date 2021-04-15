@@ -43,7 +43,13 @@ class Controls extends React.Component {
 
 }
 
-
+function Footer() {
+  return (
+    <footer className="footer">
+      Designed and Build by <a style={{fontWeight: 600}} href="https://github.com/kor-al">kor-al</a>
+    </footer>
+  );
+}
 
 class App extends React.Component {
 
@@ -67,10 +73,10 @@ class App extends React.Component {
   }
 
   componentDidMount() {
+    // add some hovered functionality
+    // var app = document.querySelector('.App');
+    // var controls = document.querySelector('.App__controls');
     // var timer = document.getElementById('timer');
-    var app = document.querySelector('.App');
-    var controls = document.querySelector('.App__controls');
-    var timer = document.getElementById('timer');
 
     // timer.addEventListener('mouseover', (e) => {
 
@@ -144,8 +150,9 @@ class App extends React.Component {
           <Controls type='session' update={this.updateDuration} count={this.state['session'].duration} />
           <Controls type='break' update={this.updateDuration} count={this.state['break'].duration} />
         </div>
-        <ReactFCCtest />
+        <Footer/>
       </div>
+      <ReactFCCtest />
       </div>
     );
   }
